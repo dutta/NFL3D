@@ -18,6 +18,7 @@ add_z_to_play <- function(a){
   only_players$z2 = 0
   
   specific <- just_football
+  specific$teamAbbr <- "ball"
   specific$seconds_since_throw = (specific$frame- pass_forward_frame)/10
   start_x <- specific %>% subset(frame == pass_forward_frame) %>% pull(x)
   start_y <- specific %>% subset(frame == pass_forward_frame)  %>% pull(y)
