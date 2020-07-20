@@ -66,8 +66,6 @@ three_d_animate <- function(a) {
                            colorscale = list(c(0, 1), c("green", "green")))
   fig <- fig %>% add_trace(type = "mesh3d",x = endzone1$x, y = endzone1$y, z = endzone1$z, intensity = endzone1$z, colorscale = list(c(0, 1), c("blue", "blue")),showlegend = F,showscale = FALSE)
   fig <- fig %>% add_trace(type = "mesh3d",x = endzone2$x, y = endzone2$y, z = endzone2$z, intensity = endzone2$z, colorscale = list(c(0, 1), c("red", "red")),showlegend = F,showscale = FALSE)
-  print('test')
-  
   #yardlines
   for(start in seq(10,110,5)){
     endzone2 <- vector("list", 2) 
@@ -189,7 +187,6 @@ three_d_animate_static <- function(a) {
                            colorscale = list(c(0, 1), c("green", "green")))
   fig <- fig %>% add_trace(type = "mesh3d",x = endzone1$x, y = endzone1$y, z = endzone1$z, intensity = endzone1$z, colorscale = list(c(0, 1), c("blue", "blue")),showlegend = F,showscale = FALSE)
   fig <- fig %>% add_trace(type = "mesh3d",x = endzone2$x, y = endzone2$y, z = endzone2$z, intensity = endzone2$z, colorscale = list(c(0, 1), c("red", "red")),showlegend = F,showscale = FALSE)
-  print('test')
   
   #yardlines
   for(start in seq(10,110,5)){
