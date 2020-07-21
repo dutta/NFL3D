@@ -1,6 +1,6 @@
 ---
 title: parabolizR
-output: html_document
+output: github_document
 always_allow_html: true
 ---
 
@@ -32,10 +32,16 @@ Then we can plot the given play in two forms`three_d_animate()` or `three_d_anim
 
 ```{r animate_plays, message = FALSE, warning = FALSE}
 fig <- three_d_animate(added_z)
-fig
 ```
 
 ```{r animate_static, message = FALSE, warning = FALSE}
 fig <- three_d_animate_static(added_z)
-fig
 ```
+
+The charts are made in `plotly` and thus we cannot embed the live version of the chart, but here are the gifs showing the two charts: 
+
+![](animated_play.gif)
+![](static_example.gif)
+
+
+
