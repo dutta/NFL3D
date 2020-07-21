@@ -50,9 +50,9 @@ The following document contains the work for the physics calculations
 behind the
 functions.
 
-<object data="./Physics_of_Ball.pdf" type="application/pdf" width="700px" height="700px">
+<object data="https://github.com/dutta/parabolizR/blob/master/Physics_of_Ball.pdf" type="application/pdf" width="700px" height="700px">
 
-<embed src="./Physics_of_Ball.pdf">
+<embed src="https://github.com/dutta/parabolizR/blob/master/Physics_of_Ball.pdf">
 
 <p>
 
