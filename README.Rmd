@@ -40,8 +40,10 @@ fig <- three_d_animate_static(added_z)
 
 The charts are made in `plotly` and thus we cannot embed the live version of the chart, but here are the gifs showing the two charts: 
 
+
+<center>
 ![](animated_play.gif)
 ![](static_example.gif)
-
+</center>
 
 
