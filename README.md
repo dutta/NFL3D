@@ -43,3 +43,24 @@ version of the chart, but here are the gifs showing the two charts:
 ![](animated_play.gif) ![](static_example.gif)
 
 </center>
+
+## The Physics Behind the Calculation
+
+The following document contains the work for the physics calculations
+behind the
+functions.
+
+<object data="./Physics_of_Ball.pdf" type="application/pdf" width="700px" height="700px">
+
+<embed src="./Physics_of_Ball.pdf">
+
+<p>
+
+This browser does not support PDFs. Please download the PDF to view it:
+<a href="/Physics_of_Ball.pdf">Download PDF</a>.
+
+</p>
+
+</embed>
+
+</object>
