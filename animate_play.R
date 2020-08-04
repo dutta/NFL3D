@@ -263,7 +263,7 @@ three_d_all_passes <- function(a) {
       type = 'scatter3d',
       mode = 'lines',
       showlegend = F,
-      color = ~playId,
+      color = 'red',
       line = list(width = 5),
       connectgaps=FALSE
     )
@@ -379,7 +379,7 @@ three_d_all_passes <- function(a) {
 
 get_football_arc <- function(data, gameId, playId,season, team, throw,catch,direction,los){
   play_file_name <- paste(
-    "data/",
+    "/Users/Rishav/Documents/nflScrapR/parabolizR/data/",
     season, "_",
     team, "_",
     gameId, "_",
@@ -416,5 +416,18 @@ get_all_arcs_for_passer <- function(p){
   }
   return(l)
   
+}
+
+get_play_animation_data <- function(playId, gameId, season, team){
+  play_file_name <- paste(
+    "/Users/Rishav/Documents/nflScrapR/parabolizR/data/",
+    season, "_",
+    team, "_",
+    gameId, "_",
+    playId, "_withZ.csv",
+    sep=""
+  )
+  data <-  read_csv(play_file_name)
+  return(data)
 }
 
