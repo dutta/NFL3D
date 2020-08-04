@@ -1,6 +1,4 @@
 library(ggplot2)
-library(gg3D)
-library(gganimate)
 library(dplyr)
 library(plotly)
 library(Matrix)
@@ -379,7 +377,7 @@ three_d_all_passes <- function(a) {
 
 get_football_arc <- function(data, gameId, playId,season, team, throw,catch,direction,los){
   play_file_name <- paste(
-    "/Users/Rishav/Documents/nflScrapR/parabolizR/data/",
+    "https://raw.githubusercontent.com/dutta/parabolizR/master/data/",
     season, "_",
     team, "_",
     gameId, "_",
@@ -403,7 +401,7 @@ get_football_arc <- function(data, gameId, playId,season, team, throw,catch,dire
 }
 
 get_all_arcs_for_passer <- function(p){
-  data <-  read_csv("/Users/Rishav/Documents/nflScrapR/parabolizR/data/ngs_passing_play_index_expanded_full.csv")
+  data <-  read_csv("https://raw.githubusercontent.com/dutta/parabolizR/master/data/ngs_passing_play_index_expanded_full.csv")
   sub_list <- data %>% subset(passer == p)
   first <- get_football_arc(data, sub_list[1,]$gameId,sub_list[1,]$playId,sub_list[1,]$season,sub_list[1,]$teamAbbr, sub_list[1,]$pass_forward_frame, 
                             sub_list[1,]$pass_arrived_frame,sub_list[1,]$play.playDirection,sub_list[1,]$play.absoluteYardlineNumber)
@@ -420,7 +418,7 @@ get_all_arcs_for_passer <- function(p){
 
 get_play_animation_data <- function(playId, gameId, season, team){
   play_file_name <- paste(
-    "/Users/Rishav/Documents/nflScrapR/parabolizR/data/",
+    "https://raw.githubusercontent.com/dutta/parabolizR/master/data/",
     season, "_",
     team, "_",
     gameId, "_",
