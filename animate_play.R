@@ -2,7 +2,6 @@ library(ggplot2)
 library(dplyr)
 library(plotly)
 library(Matrix)
-library(rlist)
 
 three_d_animate <- function(a) {
   

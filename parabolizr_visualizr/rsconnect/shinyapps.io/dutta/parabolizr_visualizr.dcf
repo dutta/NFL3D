@@ -5,6 +5,6 @@ account: dutta
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2639489
-bundleId: 3472016
+bundleId: 3472024
 url: https://dutta.shinyapps.io/parabolizr_visualizr/
-when: 1596519722.39299
+when: 1596519857.33793
