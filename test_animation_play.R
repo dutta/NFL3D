@@ -4,7 +4,7 @@ source_url("https://raw.githubusercontent.com/asonty/ngs_highlights/master/utils
 source_url("https://raw.githubusercontent.com/asonty/ngs_highlights/master/utils/scripts/plot_utils.R")
 
 play_file_name <- paste(
-  "https://raw.githubusercontent.com/dutta/parabolizR/master/data/",
+  "https://raw.githubusercontent.com/dutta/parabolizR/master/data/ngs/",
   2018, "_",
   "CAR", "_",
   2018121700, "_",

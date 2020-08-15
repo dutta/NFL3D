@@ -1,5 +1,6 @@
 library(shiny)
-source("https://raw.githubusercontent.com/dutta/parabolizR/master/animate_play.R")
+#source("https://raw.githubusercontent.com/dutta/parabolizR/master/animate_play.R")
+source("../animate_play.R")
 library(dplyr)
 library(readr)
 library(plotly)
@@ -7,7 +8,7 @@ library(shinythemes)
 library(DT)
 
 df <- read_csv("https://raw.githubusercontent.com/dutta/parabolizR/master/data/ngs_passing_play_index_expanded_full.csv")
-grouped <- df %>% group_by(passer) %>% summarise(num_passes = n()) 
+grouped <- df %>% group_by(passer) %>% summarise("Number Passes" = n(), "Mean Launch Angle (d)" = mean(launch_angle), "Mean Launch Velocity (mph)" = mean(v)*2.05) %>% mutate_if(is.numeric, round, digits = 2)
 plays <- df %>% select(play.playDescription, playId, gameId)
 #print(grouped)
 arc_data <- get_all_arcs_for_passer("R.Wilson")
@@ -68,7 +69,7 @@ server <- function(input, output) {
     print(s)
     if(is.null(s)){
       output$t2 <- renderText({"(6:17) P.Mahomes pass short right to T.Kelce for 1 yard, TOUCHDOWN."})
-      three_d_animate_static(play_data)
+      three_d_animate(play_data)
     } else{
       dataim <- plays[s,]
       subvals <- df %>% subset(playId == dataim$playId & gameId == dataim$gameId)

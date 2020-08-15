@@ -2,6 +2,7 @@ library(ggplot2)
 library(dplyr)
 library(plotly)
 library(Matrix)
+library(rlist)
 
 three_d_animate <- function(a) {
   
@@ -248,23 +249,24 @@ three_d_animate_static <- function(a) {
 }
 three_d_all_passes <- function(a) {
   fig <- plot_ly(width = 1000, height = 650) 
-  
+  a <- list.sort(a, v)
   for(i in 1:length(a)){
 
-    data <- a[[i]]
+    data <- a[[i]]$df
     fig <- fig %>% add_trace(data = data,
       x = ~x,
       y = ~y,
-      z = ~z-1.9,
+      z = ~z-.5,
       #frame = ~frame,
       type = 'scatter3d',
       mode = 'lines',
-      showlegend = F,
-      color = 'red',
+      color = ~velocity,
+      name = ~round(velocity*2.05, 2),
       line = list(width = 5),
       connectgaps=FALSE
     )
   }
+  fig <-  fig %>% layout(showlegend=TRUE)
   
   field <- vector("list", 11) 
   for (i in 1:121) {
@@ -370,13 +372,13 @@ three_d_all_passes <- function(a) {
     
   }
   
-  
+  #fig <- fig %>% layout(scene = list(title = "TEST", camera = list(x = -1.25, y = 1.25, z = 1.25),  up = list(x = 0, y = 0, z = 5)))
   return(fig)
 }
 
-get_football_arc <- function(data, gameId, playId,season, team, throw,catch,direction,los){
+get_football_arc <- function(data, gameId, playId,season, team, throw,catch,direction,los, vel){
   play_file_name <- paste(
-    "https://raw.githubusercontent.com/dutta/parabolizR/master/data/",
+    "https://raw.githubusercontent.com/dutta/parabolizR/master/data/ngs",
     season, "_",
     team, "_",
     gameId, "_",
@@ -387,15 +389,16 @@ get_football_arc <- function(data, gameId, playId,season, team, throw,catch,dire
   sub <- play_data%>% subset(displayName == "ball")
   sub <- sub %>% subset(frame >= throw & frame <= catch)
   launch_point <- sub %>% subset(frame == throw) %>% pull(x)
-  if(launch_point > 30){
-    sub$x <- sub$x - (launch_point - 30)
+  if(launch_point > 90){
+    sub$x <-  sub$x  - (launch_point - 90)
   } else{
-    sub$x <- sub$x + (launch_point - 30)
+    sub$x <- sub$x  + (90- launch_point) 
   }
-  if(direction == "left"){
-    sub$x <- 30 + (30 - sub$x)
+  if(direction == "right"){
+    sub$x <- 90 - (sub$x - 90)
   }
-  sub <- sub %>% select(x,y,z,playId,gameId)
+  sub$velocity <- vel
+  sub <- sub %>% select(x,y,z,playId,gameId,velocity) %>% mutate_if(is.numeric, round, digits = 2)
   return(sub)
 }
 
@@ -403,13 +406,13 @@ get_all_arcs_for_passer <- function(p){
   data <-  read_csv("https://raw.githubusercontent.com/dutta/parabolizR/master/data/ngs_passing_play_index_expanded_full.csv")
   sub_list <- data %>% subset(passer == p)
   first <- get_football_arc(data, sub_list[1,]$gameId,sub_list[1,]$playId,sub_list[1,]$season,sub_list[1,]$teamAbbr, sub_list[1,]$pass_forward_frame, 
-                            sub_list[1,]$pass_arrived_frame,sub_list[1,]$play.playDirection,sub_list[1,]$play.absoluteYardlineNumber)
+                            sub_list[1,]$pass_arrived_frame,sub_list[1,]$play.playDirection,sub_list[1,]$play.absoluteYardlineNumber, sub_list[1,]$v)
   l <- vector("list", nrow(sub_list))
-  l[[1]] <- first
+  l[[1]] <- list("df" = first, v = sub_list[1,]$v)
   for(i in 2:nrow(sub_list)){
     temp <- get_football_arc(data, sub_list[i,]$gameId,sub_list[i,]$playId,sub_list[i,]$season,sub_list[i,]$teamAbbr, sub_list[i,]$pass_forward_frame, 
-                             sub_list[i,]$pass_arrived_frame,sub_list[i,]$play.playDirection,sub_list[i,]$play.absoluteYardlineNumber)
-    l[[i]] <- temp
+                             sub_list[i,]$pass_arrived_frame,sub_list[i,]$play.playDirection,sub_list[i,]$play.absoluteYardlineNumber, sub_list[i,]$v)
+    l[[i]] <- list("df" = temp, v = sub_list[i,]$v)
   }
   return(l)
   
@@ -417,7 +420,7 @@ get_all_arcs_for_passer <- function(p){
 
 get_play_animation_data <- function(playId, gameId, season, team){
   play_file_name <- paste(
-    "https://raw.githubusercontent.com/dutta/parabolizR/master/data/",
+    "https://raw.githubusercontent.com/dutta/parabolizR/master/data/ngs",
     season, "_",
     team, "_",
     gameId, "_",

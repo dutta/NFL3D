@@ -32,7 +32,7 @@ for(i in 1:nrow(passing_plays)){
     sep=""
   )
   play_file_name <- paste(
-    "/Users/Rishav/Documents/nflScrapR/parabolizR/data/",
+    "/Users/Rishav/Documents/nflScrapR/parabolizR/data/ngs/",
     play$season, "_",
     play$teamAbbr, "_",
     play$gameId, "_",
