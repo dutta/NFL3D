@@ -1,6 +1,6 @@
 library(shiny)
-#source("https://raw.githubusercontent.com/dutta/parabolizR/master/animate_play.R")
-source("../animate_play.R")
+source("https://raw.githubusercontent.com/dutta/parabolizR/master/animate_play.R")
+#source("../animate_play.R")
 library(dplyr)
 library(readr)
 library(plotly)
