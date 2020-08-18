@@ -378,7 +378,7 @@ three_d_all_passes <- function(a) {
 
 get_football_arc <- function(data, gameId, playId,season, team, throw,catch,direction,los, vel){
   play_file_name <- paste(
-    "https://raw.githubusercontent.com/dutta/parabolizR/master/data/ngs",
+    "https://raw.githubusercontent.com/dutta/parabolizR/master/data/ngs/",
     season, "_",
     team, "_",
     gameId, "_",
@@ -420,7 +420,7 @@ get_all_arcs_for_passer <- function(p){
 
 get_play_animation_data <- function(playId, gameId, season, team){
   play_file_name <- paste(
-    "https://raw.githubusercontent.com/dutta/parabolizR/master/data/ngs",
+    "https://raw.githubusercontent.com/dutta/parabolizR/master/data/ngs/",
     season, "_",
     team, "_",
     gameId, "_",
