@@ -6,7 +6,7 @@ add_z_to_play <- function(a){
   
   g <- 10.725 #yards per second per second
   just_football <- a %>% subset(displayName == "ball")
-  allplayers <- a 
+  allplayers <- a
   allplayers_passforward <- allplayers %>% subset(event == "pass_forward")
   pass_forward_frame = min(allplayers_passforward$frame)
   allplayers_passarrived <- allplayers %>% subset(event == "pass_arrived")
