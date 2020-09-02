@@ -32,7 +32,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
     mainPanel(
       tabsetPanel(
         tabPanel("Player Plot", h3(textOutput("t1")), plotlyOutput(outputId = "distPlot"), 
-                 HTML("<br><br><br><br><br><br><br><br><br><br><br>"),
+                 HTML("<br><br><br><br><br><br><br><br><br><br><br><br><br><br>"),
                  plotOutput(outputId = "anglePlot"), plotOutput(outputId = "velPlot"), value = 1),
         tabPanel("Play Plot",  h3(textOutput("t2")), plotlyOutput(outputId = "playPlot"), value = 2), id = "tabselected"
       )

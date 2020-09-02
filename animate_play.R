@@ -5,17 +5,22 @@ library(Matrix)
 require(rlist)
 
 three_d_animate <- function(a) {
-  
-  fig <-  a %>% plot_ly(width = 1000, height = 650) 
+  a$color = ifelse(a$teamAbbr == "ball", "brown", a$teamAbbr)
+  fig <-  a %>% plot_ly(width = 1000, height = 650) %>% animation_opts(
+    1000, easing = "elastic", redraw = TRUE
+  )
   fig <- fig %>% add_trace(
       x = ~x,
       y = ~y,
       z = ~z+0.5,
       frame = ~frame,
       type = 'scatter3d',
-      mode = 'markers',
+      text = ~jerseyNumber,
+      mode = 'markers+text',
       showlegend = F,
-      color = ~teamAbbr,
+      color = ~color,
+      textposition = 'center',
+      textfont = list(size= 10, color= "black"),
       connectgaps=FALSE
     )
   

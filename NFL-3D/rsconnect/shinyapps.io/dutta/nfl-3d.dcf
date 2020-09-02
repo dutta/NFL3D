@@ -4,7 +4,7 @@ username:
 account: dutta
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
-appId: 2682450
-bundleId: 3531387
+appId: 2740405
+bundleId: 3583296
 url: https://dutta.shinyapps.io/nfl-3d/
-when: 1597785171.86027
+when: 1599036546.0457
