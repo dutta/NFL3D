@@ -25,7 +25,8 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
     sidebarPanel(
       
       conditionalPanel(condition = "input.tabselected == 1",  div("Select a A Player", style = "height:700px; overflow: scroll;",  dataTableOutput("x1"))),
-      conditionalPanel(condition = "input.tabselected == 2",  div("Select a A Play", style = "height:700px; overflow: scroll;",dataTableOutput("x2")))
+      conditionalPanel(condition = "input.tabselected == 2",  div("Select a A Play", style = "height:700px; overflow: scroll;",dataTableOutput("x2"))),
+      conditionalPanel(condition = "input.tabselected == 3", div("Work here is done by Rishav Dutta, Samuel Ventura, and Ron Yurko"))
       
     ),
     
@@ -34,7 +35,8 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
         tabPanel("Player Plot", h3(textOutput("t1")), plotlyOutput(outputId = "distPlot"), 
                  HTML("<br><br><br><br><br><br><br><br><br><br><br><br><br><br>"),
                  plotOutput(outputId = "anglePlot"), plotOutput(outputId = "velPlot"), value = 1),
-        tabPanel("Play Plot",  h3(textOutput("t2")), plotlyOutput(outputId = "playPlot"), value = 2), id = "tabselected"
+        tabPanel("Play Plot",  h3(textOutput("t2")), plotlyOutput(outputId = "playPlot"), value = 2),
+        tabPanel("About",  h3(textOutput("t3")),textOutput("about"), a(href = "dutta.github.io/nfl3d", "dutta.github.io/nfl3d"), value = 3), id = "tabselected"
       )
       
       
@@ -50,6 +52,9 @@ server <- function(input, output) {
   
   output$t1 <- renderText({"R.Wilson NGS Passing Chart in 3D"})
   output$t2 <- renderText({"(6:17) P.Mahomes pass short right to T.Kelce for 1 yard, TOUCHDOWN."})
+  
+  output$t3 <- renderText({"About"})
+  output$about <- renderText({"You can read more about the work behind this app at: "})
     
   output$distPlot <- renderPlotly({
     s <- input$x1_rows_selected
@@ -72,15 +77,15 @@ server <- function(input, output) {
     if(is.null(s)){
       output$t1 <- renderText({"R.Wilson NGS Passing Chart in 3D"})
       temp <- players %>% subset(passer == "R.Wilson")
-      ggplot(temp, aes(x=launch_angle)) + geom_density(alpha=.2, fill="#FF6666") + 
-        geom_vline(aes(xintercept=mean(launch_angle, na.rm=T)), color="red", linetype="dashed", size=1) + ggtitle("Distribution of Launch Angle (degrees)")+ xlab("Launch Angle")
+      ggplot(temp, aes(x=launch_angle)) + geom_density(alpha=.2, fill="#FF6666", adjust = 1/2) + 
+        geom_vline(aes(xintercept=mean(launch_angle, na.rm=T)), color="red", linetype="dashed", size=1) + ggtitle("Distribution of Launch Angle (degrees)")+ xlab("Launch Angle") + theme_bw()
     } else{
       dataim <- grouped[s,]
       print(dataim$passer)
       output$t1 <- renderText({paste(dataim$passer, " NGS Passing Chart in 3D", sep="")})
       temp <- players %>% subset(passer == dataim$passer)
-      ggplot(temp, aes(x=launch_angle)) + geom_density(alpha=.2, fill="#FF6666") + 
-        geom_vline(aes(xintercept=mean(launch_angle, na.rm=T)), color="red", linetype="dashed", size=1) + ggtitle("Distribution of Launch Angle (degrees)")+ xlab("Launch Angle")
+      ggplot(temp, aes(x=launch_angle)) + geom_density(alpha=.2, fill="#FF6666",adjust = 1/2) + 
+        geom_vline(aes(xintercept=mean(launch_angle, na.rm=T)), color="red", linetype="dashed", size=1) + ggtitle("Distribution of Launch Angle (degrees)")+ xlab("Launch Angle")+ theme_bw()
     }
   })
   
@@ -90,15 +95,15 @@ server <- function(input, output) {
     if(is.null(s)){
       output$t1 <- renderText({"R.Wilson NGS Passing Chart in 3D"})
       temp <- players %>% subset(passer == "R.Wilson")
-      ggplot(temp, aes(x=v*2.05)) + geom_density(alpha=.2, fill="#FF6666") + 
-        geom_vline(aes(xintercept=mean(v*2.05, na.rm=T)), color="red", linetype="dashed", size=1) + ggtitle("Distribution of Launch Velocity (mph)") + xlab("Launch Velocity")
+      ggplot(temp, aes(x=v*2.05)) + geom_density(alpha=.2, fill="#FF6666", adjust = 1/2) + 
+        geom_vline(aes(xintercept=mean(v*2.05, na.rm=T)), color="red", linetype="dashed", size=1) + ggtitle("Distribution of Launch Velocity (mph)") + xlab("Launch Velocity")+ theme_bw()
     } else{
       dataim <- grouped[s,]
       print(dataim$passer)
       output$t1 <- renderText({paste(dataim$passer, " NGS Passing Chart in 3D", sep="")})
       temp <- players %>% subset(passer == dataim$passer)
-      ggplot(temp, aes(x=v*2.05)) + geom_density(alpha=.2, fill="#FF6666") + 
-        geom_vline(aes(xintercept=mean(v*2.05, na.rm=T)), color="red", linetype="dashed", size=1) + ggtitle("Distribution of Launch Velocity (mph)")+ xlab("Launch Velocity")
+      ggplot(temp, aes(x=v*2.05)) + geom_density(alpha=.2, fill="#FF6666", adjust = 1/2 ) + 
+        geom_vline(aes(xintercept=mean(v*2.05, na.rm=T)), color="red", linetype="dashed", size=1) + ggtitle("Distribution of Launch Velocity (mph)")+ xlab("Launch Velocity")+ theme_bw()
     }
   })
   
